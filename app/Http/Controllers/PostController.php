@@ -4,21 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Knowfox\Crud\Services\Crud;
 
 class PostController extends Controller
 {
+    protected $crud;
+
+    public function __construct(Crud $crud)
+    {
+        $this->crud = $crud;
+        $this->crud->setup('crud.post');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function home()
     {
-        $posts = Post::orderBy('updated_at')->paginate();
+        $posts = Post::whereNotNull('published_at')
+            ->orderBy('updated_at')->paginate();
 
-        return view('posts.index', [
-            'posts' => $posts,
+        return view('post.home', [
+            'post' => $posts,
         ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        return $this->crud->index($request);
     }
 
     /**
@@ -50,7 +70,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show', [
+        return view('post.show', [
             'post' => $post,
         ]);
     }

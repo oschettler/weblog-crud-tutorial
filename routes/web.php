@@ -13,5 +13,18 @@
 
 Auth::routes();
 
-Route::resource('post', 'PostController');
-Route::get('/', 'PostController@index')->name('home');
+Route::middleware('auth')
+    ->prefix('admin')
+    ->group(function () {
+
+    Route::get('/', function () {
+        return redirect()->route('post.index');
+    });
+
+    Route::resource('post', 'PostController', [
+        'except' => ['show']
+    ]);
+});
+
+Route::get('/', 'PostController@home')->name('home');
+Route::get('/{post}', 'PostController@show')->name('post.show');
