@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Knowfox\Crud\Services\Crud;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -27,7 +28,7 @@ class PostController extends Controller
             ->orderBy('updated_at')->paginate();
 
         return view('post.home', [
-            'post' => $posts,
+            'posts' => $posts,
         ]);
     }
 
@@ -65,17 +66,6 @@ class PostController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified post.
      */
     public function edit(Post $post)
@@ -84,25 +74,27 @@ class PostController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
+     * Save the form data creating a new post.
      */
-    public function update(Request $request, Post $post)
+    public function store(PostRequest $request)
     {
-        //
+        list($post, $response) = $this->crud->store($request);
+        return $response;
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
+     * Save the form data editing a post.
+     */
+    public function update(PostRequest $request, Post $post)
+    {
+        return $this->crud->update($request, $post);
+    }
+
+    /**
+     * Delete a post.
      */
     public function destroy(Post $post)
     {
-        //
+        return $this->crud->destroy($post);
     }
 }

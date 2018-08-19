@@ -6,6 +6,7 @@ return [
         'order_by' => 'published_at|desc',
         'entity_name' => 'post',
         'entity_title' => [' Post', 'Posts'], // singular, plural
+        'deletes' => true,
         'columns' => [
             'title' => 'Title',
         ],
