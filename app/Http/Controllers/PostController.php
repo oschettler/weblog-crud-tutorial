@@ -42,13 +42,26 @@ class PostController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Post  $post
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Post $post)
+    {
+        return view('post.show', [
+            'post' => $post,
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return $this->crud->create();
     }
 
     /**
@@ -63,27 +76,11 @@ class PostController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Post $post)
-    {
-        return view('post.show', [
-            'post' => $post,
-        ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
+     * Show the form for editing the specified post.
      */
     public function edit(Post $post)
     {
-        //
+        return $this->crud->edit($post);
     }
 
     /**

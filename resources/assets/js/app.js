@@ -7,6 +7,8 @@
 
 require('./bootstrap');
 
+window.InscrybMDE = require('inscrybmde/dist/inscrybmde.min');
+
 window.Vue = require('vue');
 
 /**

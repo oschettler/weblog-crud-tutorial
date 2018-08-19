@@ -9,5 +9,25 @@ return [
         'columns' => [
             'title' => 'Title',
         ],
+        'fields' => [
+            'title' => [
+                'label' => 'Title',
+                'type' => 'text',
+                'cols' => 8,
+            ],
+            'published_at' => [
+                'label' => 'Published',
+                'type' => 'date',
+                'cols' => 4,
+            ],
+            'summary' => [
+                'label' => 'Summary',
+                'type' => 'textarea',
+            ],
+            'body' => [
+                'label' => 'Body',
+                'type' => 'markdown',
+            ],
+        ]
     ],
 ];
